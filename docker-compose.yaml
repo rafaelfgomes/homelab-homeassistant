@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - ./config:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+    environment:
+      DISABLE_JEMALLOC: true
+    restart: always
+    ports:
+      - 8123:8123
+    privileged: true
+    networks:
+      net:
+
+networks:
+  net:
+    external: true
+    name: services-network
